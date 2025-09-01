@@ -1,0 +1,43 @@
+{
+  "testData": {
+    "header_text": "Welcome to Shady Meadows B&B",
+    "our_rooms_heading": "Our Rooms",
+    "suite_reservation_heading": "Suite Room",
+    "reservationinUrl": "reservation",
+    "startDate": "15",
+    "endDate": "18",
+    "cleaningFee": 25,
+    "serviceFee": 15,
+    "bookthisroom": "Book This Room",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "abc.abc@gmail.com",
+    "phone": "12345678901",
+    "reservationSuccessMessage": "Booking Confirmed"
+  },
+  "allblankfieldserror": [
+    "must not be empty",
+    "Lastname should not be blank",
+    "Firstname should not be blank",
+    "size must be between 3 and 30",
+    "size must be between 11 and 21",
+    "size must be between 3 and 18",
+    "must not be empty"
+  ],
+  "firstNameError":{
+    "invalidFName": "ab",
+    "error":["size must be between 3 and 18"]
+  },
+  "lastNameError":{
+    "invalidLName": "xy",
+    "error":["size must be between 3 and 30"]
+  },
+  "emailError":{
+    "invalidEmail": "xycbd",
+    "error":["must be a well-formed email address"]
+  },
+  "phoneError":{
+    "invalidPhone": "12345",
+    "error":["size must be between 11 and 21"]
+  }
+}

@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2424","User enters the website","chromium","Mon Sep 01 01:17:34 BST 2025","passed","Mon Sep 01 01:17:37 BST 2025","","test.spec.ts","",""
