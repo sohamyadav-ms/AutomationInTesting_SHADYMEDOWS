@@ -1,0 +1,4 @@
+Booking Start Date: 2025-09-15
+Booking End Date: 2025-09-20
+Checking header for booking the room: Book This Room
+Reservation Success Message: Booking Confirmed

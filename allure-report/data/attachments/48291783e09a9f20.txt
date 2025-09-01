@@ -1,0 +1,3 @@
+The Reservation URL is: https://automationintesting.online/reservation/3?checkin=2025-09-01&checkout=2025-09-02
+The room card Header is: Suite
+The room reservation page Header is: Suite Room

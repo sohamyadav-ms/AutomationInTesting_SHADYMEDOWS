@@ -1,0 +1,7 @@
+Booking Start Date: 2025-09-15
+Booking End Date: 2025-09-20
+Number of nights: 6
+Expected Total Booking Amount: 1390
+Actual Total value: 1390
+Total amount matches expected total 1390
+Checking header for booking the room: Book This Room

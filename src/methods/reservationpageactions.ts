@@ -13,13 +13,13 @@ export async function validateSuiteReservationHeading(page: Page) {
     await expect(heading).toBeVisible();
     await expect(heading).toHaveText(data.testData.suite_reservation_heading);
     const headerText = await heading.textContent();
-    console.log(headerText);
+    console.log(`The Reservation Page Heading is: ${headerText}`);
     return headerText;
 }
 
 export async function validateReservationUrl(page: Page) {
     const currentUrl = page.url();
-    console.log(currentUrl);
+    console.log(`The Reservation URL is: ${currentUrl}`);
     await expect(page).toHaveURL(new RegExp(data.testData.reservationinUrl));
     return currentUrl;
 }
@@ -28,8 +28,8 @@ export async function validateCardHeaderandReservationPageHeader(page: Page) {
     const heading = reservationpagelocators.suitereservationheading(page);
     const headingText = await heading.textContent();
     expect(headingText).toContain(suiteCardTextGlobal ?? '');
-    console.log(suiteCardTextGlobal);
-    console.log(headingText);
+    console.log(`The room card Header is: ${suiteCardTextGlobal}`);
+    console.log(`The room reservation page Header is: ${headingText}`);
     return { suiteCardTextGlobal, headingText };
 }
 
@@ -52,8 +52,8 @@ export async function SelectDates(page: Page) {
     const endDay = data.testData.endDate.padStart(2, "0");
     endDateGlobal = `${year}-${month}-${endDay}`;
 
-    console.log("Start Date:", startDateGlobal);
-    console.log("End Date:", endDateGlobal);
+    console.log("Booking Start Date:", startDateGlobal);
+    console.log("Booking End Date:", endDateGlobal);
 
     const startDate = await reservationpagelocators.startDate(page);
     const endDate = await reservationpagelocators.endDate(page);
@@ -124,7 +124,7 @@ export async function validateBookThisRoomHeading(page: Page) {
     await expect(heading).toBeVisible();
     await expect(heading).toHaveText(data.testData.bookthisroom);
     const headerText = await heading.textContent();
-    console.log(headerText);
+    console.log(`Checking header for booking the room: ${headerText}`);
     return headerText;
 
 }
@@ -158,7 +158,7 @@ export async function validateReservationSuccessMessage(page: Page) {
     await expect(message).toHaveText(data.testData.reservationSuccessMessage);
     const messageText = await message.textContent();
     await page.waitForTimeout(100);
-    console.log(messageText);
+    console.log(`Reservation Success Message: ${messageText}`);
     return messageText;
 
 }

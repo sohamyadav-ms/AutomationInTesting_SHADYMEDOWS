@@ -1,7 +1,0 @@
-Start Date: 2025-09-15
-End Date: 2025-09-18
-Number of nights: 4
-Expected Total Booking Amount: 940
-Actual Total value: 940
-Total amount matches expected total 940
-Book This Room

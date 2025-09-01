@@ -12,7 +12,7 @@ export async function assertHeaderText(page: Page) {
     const headerLocator = homepagelocators.headerlocator(page);
     await expect(headerLocator).toHaveText(data.testData.header_text);
     const headerText = await headerLocator.textContent();
-    console.log(headerText);
+    console.log(`The Page Heading is: ${headerText}`);
     return headerText;
 }
 
@@ -26,7 +26,7 @@ export async function validateOurRoomsHeading(page: Page) {
     await expect(heading).toBeVisible();
     await expect(heading).toHaveText(data.testData.our_rooms_heading);
     const headerText = await heading.textContent();
-    console.log(headerText);
+    console.log(`The Rooms section Heading is: ${headerText}`);
     return headerText;
 }
 

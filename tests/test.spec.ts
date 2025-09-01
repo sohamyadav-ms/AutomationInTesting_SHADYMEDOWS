@@ -4,20 +4,20 @@ import * as homepageactions from '../src/methods/homepageactions';
 import * as reservationpageactions from '../src/methods/reservationpageactions';
 
 
-test('User enters the website', async ({ page }) => {
+test('User enters the website and Validated Application Header Text', async ({ page }) => {
     await page.goto('/');
     await homepageactions.assertHeaderText(page);
 });
 
 
-test('User clicks Book Now button on hero', async ({ page }) => {
+test('User clicks Book Now button on home page and validates Our Room Heading', async ({ page }) => {
     await page.goto('/');
     await homepageactions.clickBookNow(page);
     await homepageactions.validateOurRoomsHeading(page);
 });
 
 
-test('User books a Suite room and sees reservation page', async ({ page }) => {
+test('User books a Suite room and validates the Reservation Page', async ({ page }) => {
     await page.goto('/');
     await homepageactions.clickBookNow(page);
     await homepageactions.bookRoomSuite(page);
@@ -25,7 +25,7 @@ test('User books a Suite room and sees reservation page', async ({ page }) => {
 });
 
 
-test('Validations of Suite reservation page', async ({ page }) => {
+test('Validations of Suite room reservation page, Reservation URL, Booking Room Title and If Calander is Displayed', async ({ page }) => {
     await page.goto('/');
     await homepageactions.clickBookNow(page);
     await homepageactions.bookRoomSuite(page);
