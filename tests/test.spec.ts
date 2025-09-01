@@ -1,59 +1,60 @@
 
 import { test } from '@playwright/test';
-import * as actions from '../src/methods/actions';
+import * as homepageactions from '../src/methods/homepageactions';
+import * as reservationpageactions from '../src/methods/reservationpageactions';
 
 
 test('User enters the website', async ({ page }) => {
     await page.goto('/');
-    await actions.assertHeaderText(page);
+    await homepageactions.assertHeaderText(page);
 });
 
 
 test('User clicks Book Now button on hero', async ({ page }) => {
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.validateOurRoomsHeading(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.validateOurRoomsHeading(page);
 });
 
 
 test('User books a Suite room and sees reservation page', async ({ page }) => {
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.bookRoomSuite(page);
-    await actions.validateSuiteReservationHeading(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.bookRoomSuite(page);
+    await reservationpageactions.validateSuiteReservationHeading(page);
 });
 
 
 test('Validations of Suite reservation page', async ({ page }) => {
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.bookRoomSuite(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.bookRoomSuite(page);
 
 
-    await actions.validateReservationUrl(page);
+    await reservationpageactions.validateReservationUrl(page);
 
 
-    await actions.validateCardHeaderandReservationPageHeader(page);
+    await reservationpageactions.validateCardHeaderandReservationPageHeader(page);
 
 
-    await actions.validateCalendarDisplayed(page);
+    await reservationpageactions.validateCalendarDisplayed(page);
 });
 
 
 test('Select days in the calander and validate booking amount and clicks on Reserve Now button', async ({ page }) => {
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.bookRoomSuite(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.bookRoomSuite(page);
 
-    await actions.SelectDates(page);
+    await reservationpageactions.SelectDates(page);
 
-    await actions.extractNoOfNights(page);
+    await reservationpageactions.extractNoOfNights(page);
 
-    await actions.validateTotalBookingAmount(page);
+    await reservationpageactions.validateTotalBookingAmount(page);
 
-    await actions.clickReserveNow(page);
+    await reservationpageactions.clickReserveNow(page);
 
-    await actions.validateBookThisRoomHeading(page);
+    await reservationpageactions.validateBookThisRoomHeading(page);
 
 });
 
@@ -61,14 +62,14 @@ test('Select days in the calander and validate booking amount and clicks on Rese
 test('Validate Book The Room form for all blank field error message', async ({ page }) => {
 
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.bookRoomSuite(page);
-    await actions.SelectDates(page);
-    await actions.clickReserveNow(page);
-    await actions.clickConfirmReservation(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.bookRoomSuite(page);
+    await reservationpageactions.SelectDates(page);
+    await reservationpageactions.clickReserveNow(page);
+    await reservationpageactions.clickConfirmReservation(page);
 
 
-    await actions.validateAllFieldsBlankErrorMessage(page);
+    await reservationpageactions.validateAllFieldsBlankErrorMessage(page);
 
 });
 
@@ -76,13 +77,13 @@ test('Validate Book The Room form for all blank field error message', async ({ p
 test('Validate Book The Room form for invalid First Name field error message', async ({ page }) => {
 
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.bookRoomSuite(page);
-    await actions.SelectDates(page);
-    await actions.clickReserveNow(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.bookRoomSuite(page);
+    await reservationpageactions.SelectDates(page);
+    await reservationpageactions.clickReserveNow(page);
 
 
-    await actions.validateFirstNameFieldErrorMessage(page);
+    await reservationpageactions.validateFirstNameFieldErrorMessage(page);
 
 });
 
@@ -90,13 +91,13 @@ test('Validate Book The Room form for invalid First Name field error message', a
 test('Validate Book The Room form for invalid Last Name field error message', async ({ page }) => {
 
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.bookRoomSuite(page);
-    await actions.SelectDates(page);
-    await actions.clickReserveNow(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.bookRoomSuite(page);
+    await reservationpageactions.SelectDates(page);
+    await reservationpageactions.clickReserveNow(page);
 
     
-    await actions.validateLastNameFieldErrorMessage(page);
+    await reservationpageactions.validateLastNameFieldErrorMessage(page);
 
 });
 
@@ -104,13 +105,13 @@ test('Validate Book The Room form for invalid Last Name field error message', as
 test('Validate Book The Room form for invalid Email field error message', async ({ page }) => {
 
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.bookRoomSuite(page);
-    await actions.SelectDates(page);
-    await actions.clickReserveNow(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.bookRoomSuite(page);
+    await reservationpageactions.SelectDates(page);
+    await reservationpageactions.clickReserveNow(page);
 
     
-    await actions.validateEmailFieldErrorMessage(page);
+    await reservationpageactions.validateEmailFieldErrorMessage(page);
 
 });
 
@@ -118,32 +119,32 @@ test('Validate Book The Room form for invalid Email field error message', async 
 test('Validate Book The Room form for invalid Phone field error message', async ({ page }) => {
 
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.bookRoomSuite(page);
-    await actions.SelectDates(page);
-    await actions.clickReserveNow(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.bookRoomSuite(page);
+    await reservationpageactions.SelectDates(page);
+    await reservationpageactions.clickReserveNow(page);
 
     
-    await actions.validatePhoneFieldErrorMessage(page);
+    await reservationpageactions.validatePhoneFieldErrorMessage(page);
 
 });
 
 
 test('Fill Book The Room form and click Reserve Now and validate booking confirmed date', async ({ page }) => {
     await page.goto('/');
-    await actions.clickBookNow(page);
-    await actions.bookRoomSuite(page);
+    await homepageactions.clickBookNow(page);
+    await homepageactions.bookRoomSuite(page);
 
-    await actions.SelectDates(page);
+    await reservationpageactions.SelectDates(page);
 
-    await actions.clickReserveNow(page);
+    await reservationpageactions.clickReserveNow(page);
 
-    await actions.validateBookThisRoomHeading(page);
+    await reservationpageactions.validateBookThisRoomHeading(page);
 
-    await actions.fillBookTheRoomForm(page);
+    await reservationpageactions.fillBookTheRoomForm(page);
 
-    await actions.clickConfirmReservation(page);
+    await reservationpageactions.clickConfirmReservation(page);
 
-    await actions.validateReservationSuccessMessage(page);
+    await reservationpageactions.validateReservationSuccessMessage(page);
 
 });

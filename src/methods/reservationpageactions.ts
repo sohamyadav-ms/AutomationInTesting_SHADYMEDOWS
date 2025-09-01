@@ -1,48 +1,15 @@
-
 import { expect, Page } from '@playwright/test';
-import * as locators from '../locators/locators';
+import * as reservationpagelocators from '../locators/reservationpagelocators';
+import { suiteCardTextGlobal } from './homepageactions';
+import { suitePriceGlobaal } from './homepageactions';
 import data from '../data/testdata.json';
 
-let suiteCardTextGlobal: string | null = null;
-let suitePriceGlobaal: string | null = null;
 let noOfNightsGlobal: number | null = null;
 let startDateGlobal: string | null = null;
 let endDateGlobal: string | null = null;
 
-export async function assertHeaderText(page: Page) {
-    const headerLocator = locators.headerlocator(page);
-    await expect(headerLocator).toHaveText(data.testData.header_text);
-    const headerText = await headerLocator.textContent();
-    console.log(headerText);
-    return headerText;
-}
-
-export async function clickBookNow(page: Page) {
-    const bookNow = locators.bookNowButton(page);
-    await bookNow.click();
-}
-
-export async function validateOurRoomsHeading(page: Page) {
-    const heading = locators.ourRoomsHeading(page);
-    await expect(heading).toBeVisible();
-    await expect(heading).toHaveText(data.testData.our_rooms_heading);
-    const headerText = await heading.textContent();
-    console.log(headerText);
-    return headerText;
-}
-
-export async function bookRoomSuite(page: Page) {
-    const suiteCard = locators.roomCardSuite(page);
-    suiteCardTextGlobal = await suiteCard.textContent();
-    await expect(suiteCard).toHaveText('Suite');
-    const suiteCost = await locators.suiteRoomCost(page).textContent();
-    const cost = suiteCost?.match(/\d+/)?.[0];
-    suitePriceGlobaal = cost ?? null;
-    await locators.suiteroomBookNowButton(page).click();
-}
-
 export async function validateSuiteReservationHeading(page: Page) {
-    const heading = locators.suitereservationheading(page);
+    const heading = reservationpagelocators.suitereservationheading(page);
     await expect(heading).toBeVisible();
     await expect(heading).toHaveText(data.testData.suite_reservation_heading);
     const headerText = await heading.textContent();
@@ -58,7 +25,7 @@ export async function validateReservationUrl(page: Page) {
 }
 
 export async function validateCardHeaderandReservationPageHeader(page: Page) {
-    const heading = locators.suitereservationheading(page);
+    const heading = reservationpagelocators.suitereservationheading(page);
     const headingText = await heading.textContent();
     expect(headingText).toContain(suiteCardTextGlobal ?? '');
     console.log(suiteCardTextGlobal);
@@ -67,13 +34,13 @@ export async function validateCardHeaderandReservationPageHeader(page: Page) {
 }
 
 export async function validateCalendarDisplayed(page: Page) {
-  await expect(locators.calendarContainer(page)).toBeVisible();
-  await expect(locators.calendarToolbarLabel(page)).toBeVisible();
+  await expect(reservationpagelocators.calendarContainer(page)).toBeVisible();
+  await expect(reservationpagelocators.calendarToolbarLabel(page)).toBeVisible();
 }
 
 export async function SelectDates(page: Page) {
 
-    const monthYear = (await locators.monthYearLable(page).textContent())!;
+    const monthYear = (await reservationpagelocators.monthYearLable(page).textContent())!;
     const [monthName, year] = monthYear.trim().split(' ');
 
     const monthNumber = new Date(`${monthName} 1, ${year}`).getMonth() + 1;
@@ -88,8 +55,8 @@ export async function SelectDates(page: Page) {
     console.log("Start Date:", startDateGlobal);
     console.log("End Date:", endDateGlobal);
 
-    const startDate = await locators.startDate(page);
-    const endDate = await locators.endDate(page);
+    const startDate = await reservationpagelocators.startDate(page);
+    const endDate = await reservationpagelocators.endDate(page);
 
     const startBox = await startDate.boundingBox();
     const endBox = await endDate.boundingBox();
@@ -107,7 +74,7 @@ export async function SelectDates(page: Page) {
         await page.waitForTimeout(200); 
         await page.mouse.move(toX, toY, { steps: 20 });
         await page.mouse.up();
-        await page.waitForTimeout(200); 
+        await page.waitForTimeout(5000); 
     } else {
         throw new Error(`Could not find start or end date buttons`);
     }
@@ -116,7 +83,7 @@ export async function SelectDates(page: Page) {
 
 export async function extractNoOfNights(page: Page) {
 
-    const nightsText = await locators.noOfNights(page).textContent();
+    const nightsText = await reservationpagelocators.noOfNights(page).textContent();
     const noOfNights = nightsText?.match(/x\s+(\d+)\s+night/);
     const value = noOfNights ? parseInt(noOfNights[1], 10) : 0;
     noOfNightsGlobal = value;
@@ -129,7 +96,7 @@ export async function validateTotalBookingAmount(page: Page) {
     const amountOfDays = (suitePriceGlobaal && noOfNightsGlobal) ? (parseInt(suitePriceGlobaal, 10) * noOfNightsGlobal) : 0;
     const totalBookingAmount = amountOfDays+(Number(data.testData.cleaningFee) + Number(data.testData.serviceFee));
     console.log(`Expected Total Booking Amount: ${totalBookingAmount}`);
-    const totalAmount = await locators.totalAmount(page).textContent();
+    const totalAmount = await reservationpagelocators.totalAmount(page).textContent();
     const amount = totalAmount?.replace(/[^\d]/g, '') ?? '0';
     console.log('Actual Total value:', amount);
 
@@ -145,7 +112,7 @@ export async function validateTotalBookingAmount(page: Page) {
 
 export async function clickReserveNow(page: Page) {
 
-    await locators.reserveButton(page).click();
+    await reservationpagelocators.reserveButton(page).click();
 
 }
 
@@ -153,7 +120,7 @@ export async function validateBookThisRoomHeading(page: Page) {
     await page.evaluate(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    const heading = locators.bookthisroom(page);
+    const heading = reservationpagelocators.bookthisroom(page);
     await expect(heading).toBeVisible();
     await expect(heading).toHaveText(data.testData.bookthisroom);
     const headerText = await heading.textContent();
@@ -164,19 +131,19 @@ export async function validateBookThisRoomHeading(page: Page) {
 
 export async function fillBookTheRoomForm(page: Page) {
     await page.waitForTimeout(100);
-    await locators.firstNameInput(page).fill(data.testData.firstName);
+    await reservationpagelocators.firstNameInput(page).fill(data.testData.firstName);
     await page.waitForTimeout(100);
-    await locators.lastNameInput(page).fill(data.testData.lastName);
+    await reservationpagelocators.lastNameInput(page).fill(data.testData.lastName);
     await page.waitForTimeout(100);
-    await locators.emailInput(page).fill(data.testData.email);
+    await reservationpagelocators.emailInput(page).fill(data.testData.email);
     await page.waitForTimeout(100);
-    await locators.phoneInput(page).fill(data.testData.phone);
-    await page.waitForTimeout(500);
+    await reservationpagelocators.phoneInput(page).fill(data.testData.phone);
+    await page.waitForTimeout(5000);
     
 }
 
 export async function clickConfirmReservation(page: Page) {
-    await locators.confirmReservationButton(page).click();
+    await reservationpagelocators.confirmReservationButton(page).click();
     await page.waitForTimeout(5000);
 }
 
@@ -186,7 +153,7 @@ export async function validateReservationSuccessMessage(page: Page) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     await page.waitForTimeout(500);
-    const message = locators.reservationSuccessMessage(page);
+    const message = reservationpagelocators.reservationSuccessMessage(page);
     await expect(message).toBeVisible();
     await expect(message).toHaveText(data.testData.reservationSuccessMessage);
     const messageText = await message.textContent();
@@ -198,7 +165,7 @@ export async function validateReservationSuccessMessage(page: Page) {
 
 export async function validateAllFieldsBlankErrorMessage(page: Page) {
 
-    const errorMessages = await locators.errorMessage(page).allTextContents();
+    const errorMessages = await reservationpagelocators.errorMessage(page).allTextContents();
     console.log('Actual Error Messages:', errorMessages);
     console.log('Expected Error Messages:', data.allblankfieldserror);
     expect(errorMessages.sort()).toEqual(data.allblankfieldserror.sort());
@@ -209,21 +176,21 @@ export async function validateAllFieldsBlankErrorMessage(page: Page) {
 export async function validateFirstNameFieldErrorMessage(page: Page) {
 
     await page.waitForTimeout(100);
-    await locators.firstNameInput(page).fill(data.firstNameError.invalidFName);
+    await reservationpagelocators.firstNameInput(page).fill(data.firstNameError.invalidFName);
     await page.waitForTimeout(100);
-    await locators.lastNameInput(page).fill(data.testData.lastName);
+    await reservationpagelocators.lastNameInput(page).fill(data.testData.lastName);
     await page.waitForTimeout(100);
-    await locators.emailInput(page).fill(data.testData.email);
+    await reservationpagelocators.emailInput(page).fill(data.testData.email);
     await page.waitForTimeout(100);
-    await locators.phoneInput(page).fill(data.testData.phone);
+    await reservationpagelocators.phoneInput(page).fill(data.testData.phone);
     await page.waitForTimeout(500);
 
 
-    await locators.confirmReservationButton(page).click();
+    await reservationpagelocators.confirmReservationButton(page).click();
     await page.waitForTimeout(1000);
 
 
-    const errorMessages = await locators.errorMessage(page).allTextContents();
+    const errorMessages = await reservationpagelocators.errorMessage(page).allTextContents();
     console.log('Actual Error Messages:', errorMessages);
     console.log('Expected Error Messages:', data.firstNameError.error);
     expect(errorMessages).toEqual(data.firstNameError.error);
@@ -234,21 +201,21 @@ export async function validateFirstNameFieldErrorMessage(page: Page) {
 export async function validateLastNameFieldErrorMessage(page: Page) {
 
     await page.waitForTimeout(100);
-    await locators.firstNameInput(page).fill(data.testData.firstName);
+    await reservationpagelocators.firstNameInput(page).fill(data.testData.firstName);
     await page.waitForTimeout(100);
-    await locators.lastNameInput(page).fill(data.lastNameError.invalidLName);
+    await reservationpagelocators.lastNameInput(page).fill(data.lastNameError.invalidLName);
     await page.waitForTimeout(100);
-    await locators.emailInput(page).fill(data.testData.email);
+    await reservationpagelocators.emailInput(page).fill(data.testData.email);
     await page.waitForTimeout(100);
-    await locators.phoneInput(page).fill(data.testData.phone);
+    await reservationpagelocators.phoneInput(page).fill(data.testData.phone);
     await page.waitForTimeout(500);
 
 
-    await locators.confirmReservationButton(page).click();
+    await reservationpagelocators.confirmReservationButton(page).click();
     await page.waitForTimeout(1000);
 
 
-    const errorMessages = await locators.errorMessage(page).allTextContents();
+    const errorMessages = await reservationpagelocators.errorMessage(page).allTextContents();
     console.log('Actual Error Messages:', errorMessages);
     console.log('Expected Error Messages:', data.lastNameError.error);
     expect(errorMessages).toEqual(data.lastNameError.error);
@@ -259,21 +226,21 @@ export async function validateLastNameFieldErrorMessage(page: Page) {
 export async function validateEmailFieldErrorMessage(page: Page) {
 
     await page.waitForTimeout(100);
-    await locators.firstNameInput(page).fill(data.testData.firstName);
+    await reservationpagelocators.firstNameInput(page).fill(data.testData.firstName);
     await page.waitForTimeout(100);
-    await locators.lastNameInput(page).fill(data.testData.lastName);
+    await reservationpagelocators.lastNameInput(page).fill(data.testData.lastName);
     await page.waitForTimeout(100);
-    await locators.emailInput(page).fill(data.emailError.invalidEmail);
+    await reservationpagelocators.emailInput(page).fill(data.emailError.invalidEmail);
     await page.waitForTimeout(100);
-    await locators.phoneInput(page).fill(data.testData.phone);
+    await reservationpagelocators.phoneInput(page).fill(data.testData.phone);
     await page.waitForTimeout(500);
 
 
-    await locators.confirmReservationButton(page).click();
+    await reservationpagelocators.confirmReservationButton(page).click();
     await page.waitForTimeout(1000);
 
 
-    const errorMessages = await locators.errorMessage(page).allTextContents();
+    const errorMessages = await reservationpagelocators.errorMessage(page).allTextContents();
     console.log('Actual Error Messages:', errorMessages);
     console.log('Expected Error Messages:', data.emailError.error);
     expect(errorMessages).toEqual(data.emailError.error);
@@ -285,21 +252,21 @@ export async function validateEmailFieldErrorMessage(page: Page) {
 export async function validatePhoneFieldErrorMessage(page: Page) {
 
     await page.waitForTimeout(100);
-    await locators.firstNameInput(page).fill(data.testData.firstName);
+    await reservationpagelocators.firstNameInput(page).fill(data.testData.firstName);
     await page.waitForTimeout(100);
-    await locators.lastNameInput(page).fill(data.testData.lastName);
+    await reservationpagelocators.lastNameInput(page).fill(data.testData.lastName);
     await page.waitForTimeout(100);
-    await locators.emailInput(page).fill(data.testData.email);
+    await reservationpagelocators.emailInput(page).fill(data.testData.email);
     await page.waitForTimeout(100);
-    await locators.phoneInput(page).fill(data.phoneError.invalidPhone);
+    await reservationpagelocators.phoneInput(page).fill(data.phoneError.invalidPhone);
     await page.waitForTimeout(500);
 
 
-    await locators.confirmReservationButton(page).click();
+    await reservationpagelocators.confirmReservationButton(page).click();
     await page.waitForTimeout(1000);
 
 
-    const errorMessages = await locators.errorMessage(page).allTextContents();
+    const errorMessages = await reservationpagelocators.errorMessage(page).allTextContents();
     console.log('Actual Error Messages:', errorMessages);
     console.log('Expected Error Messages:', data.phoneError.error);
     expect(errorMessages).toEqual(data.phoneError.error);
@@ -309,7 +276,7 @@ export async function validatePhoneFieldErrorMessage(page: Page) {
 
 export async function validateReservationDate(page: Page) {
    
-    const bookedDate = locators.conformationDate(page);
+    const bookedDate = reservationpagelocators.conformationDate(page);
     const bookingDateText = (await bookedDate.textContent())?.trim() || '';
     console.log(`Booking Date Range: ${bookingDateText}`);
 
