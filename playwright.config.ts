@@ -44,7 +44,10 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
          headless: false,
         launchOptions: {
-          args: ['--window-size=1920,1080'],
+          args: [
+          '--kiosk', 
+          '--disable-infobars', 
+        ],
        },
       },
     },
