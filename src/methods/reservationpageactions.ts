@@ -74,7 +74,7 @@ export async function SelectDates(page: Page) {
         await page.waitForTimeout(200); 
         await page.mouse.move(toX, toY, { steps: 20 });
         await page.mouse.up();
-        await page.waitForTimeout(5000); 
+        await page.waitForTimeout(500); 
     } else {
         throw new Error(`Could not find start or end date buttons`);
     }
@@ -138,13 +138,13 @@ export async function fillBookTheRoomForm(page: Page) {
     await reservationpagelocators.emailInput(page).fill(data.testData.email);
     await page.waitForTimeout(100);
     await reservationpagelocators.phoneInput(page).fill(data.testData.phone);
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(100);
     
 }
 
 export async function clickConfirmReservation(page: Page) {
     await reservationpagelocators.confirmReservationButton(page).click();
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(2000);
 }
 
 export async function validateReservationSuccessMessage(page: Page) {
@@ -183,11 +183,11 @@ export async function validateFirstNameFieldErrorMessage(page: Page) {
     await reservationpagelocators.emailInput(page).fill(data.testData.email);
     await page.waitForTimeout(100);
     await reservationpagelocators.phoneInput(page).fill(data.testData.phone);
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(100);
 
 
     await reservationpagelocators.confirmReservationButton(page).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
 
 
     const errorMessages = await reservationpagelocators.errorMessage(page).allTextContents();
@@ -208,11 +208,11 @@ export async function validateLastNameFieldErrorMessage(page: Page) {
     await reservationpagelocators.emailInput(page).fill(data.testData.email);
     await page.waitForTimeout(100);
     await reservationpagelocators.phoneInput(page).fill(data.testData.phone);
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(100);
 
 
     await reservationpagelocators.confirmReservationButton(page).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
 
 
     const errorMessages = await reservationpagelocators.errorMessage(page).allTextContents();
@@ -233,11 +233,11 @@ export async function validateEmailFieldErrorMessage(page: Page) {
     await reservationpagelocators.emailInput(page).fill(data.emailError.invalidEmail);
     await page.waitForTimeout(100);
     await reservationpagelocators.phoneInput(page).fill(data.testData.phone);
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(100);
 
 
     await reservationpagelocators.confirmReservationButton(page).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
 
 
     const errorMessages = await reservationpagelocators.errorMessage(page).allTextContents();
@@ -259,11 +259,11 @@ export async function validatePhoneFieldErrorMessage(page: Page) {
     await reservationpagelocators.emailInput(page).fill(data.testData.email);
     await page.waitForTimeout(100);
     await reservationpagelocators.phoneInput(page).fill(data.phoneError.invalidPhone);
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(100);
 
 
     await reservationpagelocators.confirmReservationButton(page).click();
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(2000);
 
 
     const errorMessages = await reservationpagelocators.errorMessage(page).allTextContents();
